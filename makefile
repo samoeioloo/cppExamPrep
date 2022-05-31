@@ -4,7 +4,7 @@
 CC=g++         # the compiler
 LIBS=-std=c++2a   # the libraries we will ref
 
-# Need object files Fib.o and FibDriver.o to create exe fibonacci
+# Follow convention to add other topics' examples.
 ExamPractice: ExamPractice.cpp
 	$(CC) -c ExamPractice.cpp $(LIBS) && $(CC) ExamPractice.o -o ExamPractice.exe $(LIBS)
 
