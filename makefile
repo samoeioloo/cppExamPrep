@@ -17,7 +17,7 @@ pointers: pointers.cpp
 playground: playground.cpp
 	$(CC) -c playground.cpp $(LIBS) && $(CC) playground.o -o playground.exe && ./playground.exe
 
-all: pointers inheritance
+all: pointers inheritance ExamPractice playground
 	@echo "Targets ran:" $^;
 
 # deletes all the object code files
