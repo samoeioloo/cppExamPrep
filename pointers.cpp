@@ -6,6 +6,8 @@
 #include <iostream>
 #include <stdint.h>
 //int64_t -> 64 bit int.
+using namespace std;
+
 class MyInt {
 private:
     int i;
@@ -37,6 +39,13 @@ void sharedPointersExample(){
 
     // add passing of shared pointer by value, reference, check use_count.
     //move pointer in a function
+
+    // TODO update and incorporate code
+    //std::unique_ptr<int> A(new int(3));
+    //A.release();
+    //A.reset(new int(50));
+    //cout<< "\n" << *A;
+    //delete pt;
 
 }
 void uniquePointersExample() {
@@ -105,6 +114,31 @@ void pointerArithmeticExample (){
         std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
+
+    //WORD EXAMPLE.
+    char word[4]={'w','o','r','d'};
+    for (int i = 0; i < 4; ++i) { //++i faster than i++
+        cout << *(word+i);
+    }
+    for (int i = 0; i < 4; ++i) { //++i faster than i++
+        cout << word[i];
+    }
+    for (char * i = word; i!=word+4; ++i){
+        cout << *i;
+    }
+}
+
+void rawPointers(){
+    char a = 'a';
+    char * ptr = &a;
+    char ** ptr1 = &ptr;
+    char *** ptr2 = &ptr1;
+    char ****ptr3 = & ptr2; //pointer 3 to pointer 2 to pointer 1 to pointer to char.
+    std::cout << *(*(*(*ptr3)));
+
+    //int* pt = 0xFFFFFFA0;//new int(1);//NULL;
+    //    int * ptrNull = nullptr;
+    //    cout<< (ptrNull);
 }
 
 int main(){
@@ -113,4 +147,5 @@ int main(){
     weakPointersExample();
     pointerRefExample();
     pointerArithmeticExample();
+    rawPointers();
 }
