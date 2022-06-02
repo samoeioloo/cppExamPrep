@@ -13,8 +13,9 @@ private:
     int i;
 public:
     MyInt(int i): i(i){};
-    MyInt(){}
+    MyInt(): i(77){} //Default constructor - array construction fails without
     friend std::ostream & operator<<(std::ostream & os, const MyInt & in);
+    friend void dynamicMemory(); //friend so function can access private i.
 };
 std::ostream & operator<<(std::ostream & os, const MyInt & in){
     os << in.i;
@@ -141,6 +142,36 @@ void rawPointers(){
     //    cout<< (ptrNull);
 }
 
+void dynamicMemory(){
+    //SINGLE ALLOCATION
+    MyInt * intPtr = new MyInt(4);
+    delete intPtr;
+
+    //ARRAY ALLOCATION
+    MyInt *ints = new MyInt[10];
+    for( int i = 0; i<10; i++){
+        cout << (ints+i)->i << endl;
+        *(ints+i) = MyInt(i); // replace MyInt.
+        cout << (ints+i)->i << endl;
+    }
+    delete [] ints;
+
+    //ARRAY OF POINTERS ALLOCATION
+    MyInt ** MyIntPtrs = new MyInt * [3];
+
+    for( int i = 0; i<3; i++){
+        MyIntPtrs[i] = new MyInt(i); // each of the 3 pointers now holds a pointer to memory of just created MyInts.
+    }
+
+    for( int i = 0; i<3; i++) {
+        delete *(MyIntPtrs+i); //delete each of the allocated pointers. Linearly / Flat array view.
+        //delete MyIntPtrs[i]; //easier way
+    }
+
+    delete [] MyIntPtrs;
+
+    }
+
 int main(){
     sharedPointersExample();
     uniquePointersExample();
@@ -148,4 +179,5 @@ int main(){
     pointerRefExample();
     pointerArithmeticExample();
     rawPointers();
+    dynamicMemory();
 }
