@@ -16,16 +16,37 @@ public:
     MyInt(): i(77){} //Default constructor - array construction fails without
     friend std::ostream & operator<<(std::ostream & os, const MyInt & in);
     friend void dynamicMemory(); //friend so function can access private i.
+    ~MyInt(){cout<< i << " Destroyed \t";}
 };
 std::ostream & operator<<(std::ostream & os, const MyInt & in){
     os << in.i;
     return os;
+}
+void sharedPtrByValue(std::shared_ptr<int> a){
+    cout << "ByValue: sharedPtr ref count now: " << a.use_count() << endl;
+
+    {
+        shared_ptr<int> b = a;
+        cout << "ByRef: sharedPtr ref after copying: count now:" << b.use_count() << "==" << a.use_count() << endl;
+    }
+    cout << "ByValue: sharedPtr ref count after b leaving scope now: " << a.use_count() << endl;
+}
+void sharedPtrByRef(std::shared_ptr<int> &a){
+    cout << "ByRef: sharedPtr ref count stays at One: " << a.use_count() << endl;
 }
 
 void sharedPointersExample(){
 //        std::shared_ptr<int>(new int(10)); //make_shared
 //        int *ptr = new int(20)
 //        std::shared_ptr<int> ptr = std::make_shared<int>(10);
+
+    std::shared_ptr<int> number1 = std::make_shared<int>(111); //explicit decl. //HEAP OR NOT?
+    std::shared_ptr<int> number2(new int(222)); // direct instantiation (preferred)
+    auto number3 = std::make_shared<int>(333); // no use of new. uses auto
+    std::cout << *number1 << " " << *number2 << " " << *number3 << " " << std::endl ;
+
+    sharedPtrByValue(number1);
+    sharedPtrByRef(number1);
 
     std::shared_ptr<int> bar = std::make_shared<int> (10);
     std::shared_ptr<MyInt> bar1 = std::make_shared<MyInt> (100);
@@ -42,14 +63,11 @@ void sharedPointersExample(){
     //move pointer in a function
 
     // TODO update and incorporate code
-    //std::unique_ptr<int> A(new int(3));
-    //A.release();
-    //A.reset(new int(50));
-    //cout<< "\n" << *A;
-    //delete pt;
-
 }
+
 void uniquePointersExample() {
+    //zero overhead compared to raw pointers.
+
     //moving between unique_ptrs
     std::unique_ptr<int> lhs(new int(20));
     std::unique_ptr<int> rhs(new int(207));
@@ -64,16 +82,7 @@ void uniquePointersExample() {
     std::cout << "Unique pointer moved to shared: " << &name1 << std::endl;
 
     rhs.release(); //now nullptr
-    rhs.reset(new int(10)); //lhs reset to new ptr
-
-    std::shared_ptr<int> number1 = std::make_shared<int>(111); //explicit decl. //HEAP OR NOT?
-    auto number3 = std::make_shared<int>(333); // no use of new. uses auto
-    std::shared_ptr<int> number2(new int(222)); // direct instantiation (preferred)
-    std::cout << *number1 << " " << *number2 << " " << *number3 << " " << std::endl ;
-
-    int c(3);
-    int &pt = c;
-
+    rhs.reset(new int(10)); //lhs reset to new ptr pointing to 10.
 }
 void weakPointersExample() {
     std::cout << "To be implemented";
@@ -90,6 +99,11 @@ void pointerRefExample (){
     int *heapPtr = new int(10);
     std::cout << "Comparison of hex digits / bits: \nStck size: " << sizeof(intPointer) << std::dec << std::endl << "Heap size: " << sizeof(heapPtr) << std::dec << std::endl;
     std::cout << "\nYou can get the the address a pointer stores: " << intPointer << "\nThe value of that address:" << *intPointer <<" \nThe address of the pointer variable itself on the stack: "<< &intPointer << std::endl;
+
+    int c(3);
+    int &ref = c;
+    int * ptr = &c;
+    cout << c << " " << *ptr;
 
 }
 void pointerArithmeticExample (){
@@ -174,10 +188,10 @@ void dynamicMemory(){
 
 int main(){
     sharedPointersExample();
-    uniquePointersExample();
-    weakPointersExample();
-    pointerRefExample();
-    pointerArithmeticExample();
-    rawPointers();
-    dynamicMemory();
+//    uniquePointersExample();
+//    weakPointersExample();
+//    pointerRefExample();
+//    pointerArithmeticExample();
+//    rawPointers();
+//    dynamicMemory();
 }
