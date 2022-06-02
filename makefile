@@ -5,6 +5,16 @@ CC=g++         # the compiler
 LIBS=-std=c++2a   # the libraries we will ref
 
 # Follow convention to add other topics' examples.
+# compiles all .cpp files in the directory to correspondingly named .o files and links to .exe files.
+
+#SRCS    = $(wildcard *.cpp)
+#OBJS    = ${SRCS:.cpp=.o}
+#
+#.PHONY: all
+#all: $(patsubst %.o,%,$(OBJS))
+#%.o: %.cpp
+#	$(CC) -c $< -o $@ && $(CC) $@ -o $(addsuffix .exe $(basename $@ .o))
+
 ExamPractice: ExamPractice.cpp
 	$(CC) -c ExamPractice.cpp $(LIBS) && $(CC) ExamPractice.o -o ExamPractice.exe $(LIBS)
 
@@ -17,7 +27,11 @@ pointers: pointers.cpp
 playground: playground.cpp
 	$(CC) -c playground.cpp $(LIBS) && $(CC) playground.o -o playground.exe && ./playground.exe
 
-all: pointers inheritance ExamPractice playground
+containers: containers.cpp
+	$(CC) -c containers.cpp $(LIBS) && $(CC) containers.o -o containers.exe && ./containers.exe
+
+
+all: pointers inheritance ExamPractice containers playground
 	@echo "Targets ran:" $^;
 
 # deletes all the object code files
