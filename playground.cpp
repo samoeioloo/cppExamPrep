@@ -4,103 +4,77 @@
 #include "string"
 #include "iostream"
 #include "fstream"
-//#include <ifstream>
 //#include "ostream"
-//#include "istream"
 #include "sstream"
 #include "vector"
 
-struct st {
-    st(int a, std::string b): a(a), b(b){};
+#define MyMacro(x,y) std::cout << (x+y) << std::endl
+#define MyMacro1(x,y) std::cout << (x##y) << std::endl
+using namespace std;
+
+
+//struct defaults to public, class defaults to private.
+struct MyStruct {
+    MyStruct(int a, std::string b): a(a), b(b){};
     int a;
     std::string b;
     int getC() {return c;}
-    ~st(){std::cout<<"\ndestruction boiz";}
+    ~MyStruct(){std::cout<<"\ndestruction boiz";}
 private:
     int c=89;
 protected:
     int d;
 };
-using namespace std;
+
+void testStruct(){
+    MyStruct a = {1,"56"};
+    cout<<a.getC();
+}
+
+void testIO(){
+    //const char a[] = {'c','o','n','t','a','i','n','e','r','s','.','o','\0'};
+    string filename = "containers.o"; //filename to delete.
+    const char *str = filename.c_str(); //convert string to null-terminated char array.
+    remove(str); //deletes file named filename
+
+    std::ifstream in("./README.md", ios::binary);
+
+    std:: string var;
+    while (in.good()){
+        std::cout << in.good();
+        std::getline(in, var);
+        std::cout<< var << "\n";
+    }
+    std::cout << "printing hex to binary: " << 0xF << std::hex << endl;
+
+    cout << "Convert string to String, int, double: \n";
+    string t; int a,b; float c;
+    string d = "IamaString 2 4.67";
+    istringstream ins(d);
+    ins >>  t >> a >> b >>c;
+    cout << "individually stored variables";
+    cout << t << a << b <<c;
+}
 /*
 int main(int argc, char * argv[]){
-
-//st a = {1,"56"};
-//    std::cout<<a.getC();
-
-std::ifstream in("./pointer.cpp", ios::binary);
-    //int* pt = 0xFFFFFFA0;//new int(1);//NULL;
-
-    //    int * ptrNull = nullptr;
-    //    cout<< (ptrNull);
-
-    char word[4]={'w','o','r','d'};
-    for (int i = 0; i < 4; ++i) { //++i faster than i++
-            cout << *(word+i);
-    }
-
-    for (int i = 0; i < 4; ++i) { //++i faster than i++
-        cout << word[i];
-    }
-
-    for (char * i = word; i!=word+4; ++i){
-        cout << *i;
-    }
-
-    char a = 'a';
-    char * ptr = &a;
-    char ** ptr1 = &ptr;
-    char *** ptr2 = &ptr1;
-    char ****ptr3 = & ptr2; //pointer 3 to pointer 2 to pointer 1 to pointer to char.
-
-    vector<int> * vect = new vector<int>;
-    //int *ptrr = new int [3];
-
-    vect->push_back(4);
-    //cout << ptrr[1];
-
-    for (int t: *vect){
-        cout<<t;
-    }
-
-    delete vect;
-
-    std::unique_ptr<int> A(new int(3));
-    //A.release();
-    //A.reset(new int(50));
-    cout<< "\n" << *A;
-
-
-//delete pt;
-//std:: string var;
-//while (in.good()){
-//    std::cout << in.good();
-//    std::getline(in, var);
-//    std::cout<< var << "\n";
-//    std::cout << 28 << std::hex;
-//}
-
-//string t; int a,b; float c;
-//string d = "IamaString 2 4.67";
-//istringstream in(d);
-//in >>  t >> a >> b >>c;
-//cout << t << a << b <<c;
 
 }
  */
 
 int main(int argc, char * argv[]) {
 
-    int arr[4] = {3,4,5,7};
+/*
+ *
+ */
 
-    std::vector<int> vectName(arr, arr+5);
+    testIO();
+    MyMacro(1,2);
+    MyMacro1(1,2);
 
-    for(auto it= vectName.begin(); it!=vectName.end(); it++){
-        std::cout << *it;
-    }
-
-    for (int a: vectName){
-        std::cout << a;
-    }
 
 }
+
+/*
+ *Variable qualifiers - static, const,
+ * Type definitions - typedef, auto, decltype(xxx)
+ */
