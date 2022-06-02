@@ -14,19 +14,19 @@ using namespace std;
 
 //struct defaults to public, class defaults to private.
 struct MyStruct {
-    MyStruct(int a, std::string b): a(a), b(b){ cout<<"Struct created \n"; };
+    MyStruct(int a, std::string b): a(a), b(b), c(89){ cout<<"Struct created \n"; };
     int a;
     std::string b;
     int getC() {return c;}
     ~MyStruct(){std::cout<<"\ndestruction boiz \n";}
 private:
-    int c=89;
+    int c;
 protected:
     int d;
 };
 
 void testStruct(){
-    MyStruct a = {1,"56"};
+    MyStruct a(1,"56");
     cout<<a.getC();
 }
 

@@ -5,13 +5,13 @@
 #include <iostream>
 
 //>>, <<, +, -, /, *, +=, *=, -=,!=, ++, —, [], (), >,<,~
-namespace ClassMembers {
+namespace OOClassMembers {
     class Person {
     public:
     };
 }
 
-namespace NonClassMember{
+namespace OONonClassMember{
     class Person {
     public:
     };
