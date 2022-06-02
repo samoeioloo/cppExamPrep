@@ -35,6 +35,11 @@ void sharedPtrByRef(std::shared_ptr<int> &a){
     cout << "ByRef: sharedPtr ref count stays at One: " << a.use_count() << endl;
 }
 
+std::unique_ptr<int> uniqueHotPotato(std::unique_ptr<int> b){
+    b.reset(new int(8080));
+    return std::move(b);
+}
+
 void sharedPointersExample(){
 //        std::shared_ptr<int>(new int(10)); //make_shared
 //        int *ptr = new int(20)
@@ -73,6 +78,9 @@ void uniquePointersExample() {
     std::unique_ptr<int> rhs(new int(207));
     rhs = std::move(lhs);
     std::cout << *rhs << std::endl; //rhs now points to 20, lhs now nullptr
+
+    unique_ptr<int> newPtr = uniqueHotPotato(std::move(lhs));
+    cout << "Successfully hotPotatoed uniquePtr: " << *newPtr << endl;
 
     //unique_ptr to shared_ptr
     std::unique_ptr<std::string> name = std::make_unique<std::string>("sdfsdssd");
@@ -187,8 +195,8 @@ void dynamicMemory(){
     }
 
 int main(){
-    sharedPointersExample();
-//    uniquePointersExample();
+//    sharedPointersExample();
+    uniquePointersExample();
 //    weakPointersExample();
 //    pointerRefExample();
 //    pointerArithmeticExample();
