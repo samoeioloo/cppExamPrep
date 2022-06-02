@@ -15,6 +15,11 @@ LIBS=-std=c++2a   # the libraries we will ref
 #%.o: %.cpp
 #	$(CC) -c $< -o $@ && $(CC) $@ -o $(addsuffix .exe $(basename $@ .o))
 
+#SRC_FILES := $(wildcard *.cpp)
+#OBJ_FILES := $(patsubst %.cpp,%.o,$(SRC_FILES))
+#test: $(OBJ_FILES)
+#	$(CC) -o $@ $^ #&& $(CC) $@ -o $(addsuffix .exe $(basename $@ .o))
+
 ExamPractice: ExamPractice.cpp
 	$(CC) -c ExamPractice.cpp $(LIBS) && $(CC) ExamPractice.o -o ExamPractice.exe $(LIBS)
 
@@ -29,6 +34,12 @@ playground: playground.cpp
 
 containers: containers.cpp
 	$(CC) -c containers.cpp $(LIBS) && $(CC) containers.o -o containers.exe && ./containers.exe
+
+operatorOverloading: operatorOverloading.cpp
+	$(CC) -c operatorOverloading.cpp $(LIBS) && $(CC) operatorOverloading.o -o operatorOverloading.exe && ./operatorOverloading.exe
+
+raii: raii.cpp
+	$(CC) -c raii.cpp $(LIBS) && $(CC) raii.o -o raii.exe && ./raii.exe
 
 
 all: pointers inheritance ExamPractice containers playground
