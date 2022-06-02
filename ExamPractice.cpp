@@ -5,7 +5,7 @@
 
 //ExamPractice Driver File
 
-#include "ExamPractice.h"
+//#include "ExamPractice.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -15,8 +15,13 @@
 /*
 List all aspects to be practiced.
  */
+static_assert(not (1==2));
+//std::invokable;
+//std::is_same<T,U>;
+
 
 // Class Declarations
+
 
 class Base{
 public:
@@ -147,10 +152,10 @@ void friendsExample(){
 
 
 //basic class wrapping an int
-std::ostream & operator<<(std::ostream & os, const GrandChild & gc){
-    os << gc.name + " "+ gc.totem;
-    return os;
-}
+//std::ostream & operator<<(std::ostream & os, const GrandChild & gc){
+//    os << gc.name + " "+ gc.totem;
+//    return os;
+//}
 
 namespace operatorOverloads {
     //+,-,+=,-=, <<, etc
@@ -184,13 +189,13 @@ namespace operatorOverloads {
         return os;
     }
 
-    void insertionOverloading(void){
-        operatorOverloads::MyInt a(2);
-        std::cout << a;
-
-        GrandChild albon(45,50,60, "JOhn", "Wick");
-        std::cout<< albon;
-    }
+//    void insertionOverloading(void){
+//        operatorOverloads::MyInt a(2);
+//        std::cout << a;
+//
+//        GrandChild albon(45,50,60, "JOhn", "Wick");
+//        std::cout<< albon;
+//    }
 
     void ostreamOverload (){
     Date dt(5, 6, 92);
