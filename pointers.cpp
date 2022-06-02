@@ -150,9 +150,9 @@ void dynamicMemory(){
     //ARRAY ALLOCATION
     MyInt *ints = new MyInt[10];
     for( int i = 0; i<10; i++){
-        cout << (ints+i)->i << endl;
+        cout << (ints+i)->i << " ";
         *(ints+i) = MyInt(i); // replace MyInt.
-        cout << (ints+i)->i << endl;
+        cout << (ints+i)->i << " \t";
     }
     delete [] ints;
 
