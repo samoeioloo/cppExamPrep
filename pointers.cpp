@@ -23,7 +23,7 @@ std::ostream & operator<<(std::ostream & os, const MyInt & in){
     return os;
 }
 void sharedPtrByValue(std::shared_ptr<int> a){
-    cout << "ByValue: sharedPtr ref count now: " << a.use_count() << endl;
+    cout << "ByValue: sharedPtr ref count now: " << a.use_count() << endl; // count increases because of local copy.
 
     {
         shared_ptr<int> b = a;
@@ -93,7 +93,17 @@ void uniquePointersExample() {
     rhs.reset(new int(10)); //lhs reset to new ptr pointing to 10.
 }
 void weakPointersExample() {
-    std::cout << "To be implemented";
+    std::shared_ptr<int> node0(new int(222)); // direct instantiation (preferred)
+    std::weak_ptr<int> node1(node0);
+
+    cout << node1.use_count();//
+    {
+    std::shared_ptr<int> spt = node1.lock();//make shared copy of weak.
+    std::cout << "*spt == " << *spt << '\n';
+    cout << "use count within scope now: " << spt.use_count() << endl;
+    }
+    cout << "use count after leaving scope now: " << node1.use_count() << endl;
+
 }
 void pointerRefExample (){
     std::cout << "POINTERS & REFs EXAMPLE \n";
@@ -196,8 +206,8 @@ void dynamicMemory(){
 
 int main(){
 //    sharedPointersExample();
-    uniquePointersExample();
-//    weakPointersExample();
+//    uniquePointersExample();
+    weakPointersExample();
 //    pointerRefExample();
 //    pointerArithmeticExample();
 //    rawPointers();
