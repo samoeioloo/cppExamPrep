@@ -20,7 +20,7 @@ void vectorIterators (void) {
 
     vectName.push_back(8);
 
-    for (int &a: vectName) {
+    for (int &a: vectName) { // for each returns actual value.
         cout << a << endl;
     }
 }
