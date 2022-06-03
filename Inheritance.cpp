@@ -63,7 +63,7 @@ namespace Inheritance {
         std::string jobTitle;
         employee(int salary, std::string title): salary(salary), jobTitle(title){}
     };
-    class tutor: public student, protected employee{
+    class tutor final: public student, protected employee {
     public:
         std::string course;
         tutor(int gpa, int salary, std::string title, std::string course): student(gpa), employee(salary, title), course(course){}
@@ -75,6 +75,8 @@ namespace Inheritance {
         //if u try directly access salary / title, it will refuse as its been inherited with protected.
         //if you try access course or gpa, those will be directly accessible.
     };
+
+    //class ty: tutor{}; //will result in error as tutor has been marked final.
 
     void multipleInheritance(){
         tutor KCK(90, 50, "Head Tutor", "CSC3022F");
@@ -95,7 +97,42 @@ namespace Inheritance {
 
 }
 
+namespace Abstract{
+    class myAbClass{
+        //composed of pure virtual functions.
+    public:
+        myAbClass(): balance(25){}
+        virtual void Debit(int value) = 0;
+        virtual void Credit(int value) = 0;
+        virtual int GetBalance(void) = 0;
+    private:
+        int balance;
+    };
+
+    class Account: myAbClass{
+        //MUST implement ALL PVFs. If one is commented out, error: unimplemented pure virtual method 'Credit' in 'Account'
+    public:
+        Account(): balance(25){}
+        void Debit(int value) {
+            balance-=value;
+        }
+        void Credit(int value) {
+            balance+=value;
+        }
+        int GetBalance(){ return balance; }
+    private:
+        int balance;
+    };
+
+    void abstractExample(){
+        Account acc;
+        acc.Debit(4);
+        std::cout << acc.GetBalance() << std::endl;
+    }
+}
+
 int main(){
     //Inheritance::inheritanceExample();
     Inheritance::multipleInheritance();
+    Abstract::abstractExample();
 }
