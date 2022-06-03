@@ -127,7 +127,7 @@ namespace Abstract{
     void abstractExample(){
         Account acc;
         acc.Debit(4);
-        std::cout << acc.GetBalance() << std::endl;
+        std::cout << "Account Balance" << acc.GetBalance() << std::endl;
     }
 }
 
