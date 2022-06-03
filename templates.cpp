@@ -39,6 +39,7 @@ namespace templates {
     T Sum(T a, U b) {
         return a + b;
     }
+}
 
     //TODO more examples impelementing consepts from scratch, implementing built-in concepts etc.
     //another example writing concepts / implementing them
@@ -47,7 +48,35 @@ namespace templates {
 
 namespace stl{
 
+    void STLAlgos() {
+        cout << "FILL with 77 STL Algo" << endl;
+        vector<int> myVect0 = {2,9,3,8,5,7};
+        std::fill(myVect0.begin(), myVect0.end(), 77);
+        for (int a : myVect0){ cout << a << " "; } cout << endl << endl; //All filled with 77.
 
+        cout << "REMOVE 55 from vector STL Algo" << endl;
+        vector<int> myVect1 = {2,9,3,8,55,7};
+        //std::remove(myIntVect.begin(), myIntVect.end(), 77); //does not remove as ecxpected.
+        std::remove(myVect1.begin(), myVect1.end(), 55); //does not remove as ecxpected.
+        for (int a : myVect1) { cout << a << " "; } cout << endl << endl;;
+
+        cout << "FIND iterator with value 9 in vector STL Algo" << endl;
+        vector<int> myVect2 = {2,9,3,8,55,7};
+        vector<int>::iterator it = std::find(myVect2.begin(), myVect2.end(), 9);
+        auto *ptr  = &(*it);  cout << "address: " << ptr << " value: " << *it << endl << endl; //Find 33 and print address and value.
+
+        cout << "SORT vector STL Algo" << endl;
+        vector<int> myVect3 = {2,9,3,8,55,7};
+        std::sort(myVect3.begin(), myVect3.end()); //does not remove as ecxpected.
+        for (int a : myVect3) { cout << a << " "; } cout << endl;
+
+        cout << "SUM vector STL Algo" << endl;
+        int sum = std::accumulate(myVect3.begin(), myVect3.end(), 1000); //does not remove as ecxpected.
+        cout << sum << " " << endl;
+
+
+
+    }
 }
 
 int main(){
@@ -59,6 +88,7 @@ int main(){
     cout << templates::MyMax<char>('r','t') << endl;
     cout << templates::Sum(2.0,4.2) <<endl;
     //cout << templates::Sum(2,4.0); //will fail because Sum has a sameType concept constraint.
+    stl::STLAlgos();
 
 
 }
