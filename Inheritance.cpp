@@ -8,48 +8,20 @@ namespace Inheritance {
 
     class Base {
     public:
-        //public class members
         int x;
-
-        //constructor
         Base(int x, int y, int z) : x(x), y(y), z(z) {};
-
-        // public operator overloading
-//        int operator()(int i, int j) {
-//            return x + y;; // (x,y) overload
-//        };
-//
-//        Base operator+(const Base &rhs) {
-//            this->x = this->x - rhs.x;
-//            this->y = this->y + rhs.y;
-//            return *this;
-//        }
-
-        //public getter method
-        int getY(void) {
+        int getY(void) { //public getter method
             return this->y; //explicit else just y would do or (*this).y
         }
-
-        std::string getSecretVault() {
-            return bestySecretVault;
-        }
-
-        //hommies declaration both function and class.
-        //A hommie can access the private and protected members of the class in which it is declared as a friend.
-//        friend void bff(Base &base);
-//
-//        friend class Besty;
-        //Note 1=> friend Base & operator+( Base & lhs, const Base & rhs);
-
+        std::string getSecretVault() { return bestySecretVault; }
     private:
         int y;
         std::string bestySecretVault;
-
     protected:
         int z;
     };
 
-    class Child : public Base {
+    class Child : virtual public Base {
     public:
         std::string name;
 
@@ -64,11 +36,11 @@ namespace Inheritance {
         }
     };
 
-    class GrandChild : public Child {
+    class GrandChild : virtual public Base, public Child {
     public:
         std::string totem;
 
-        GrandChild(int x, int y, int z, std::string name, std::string totem) : Child(x, y, z, name), totem(totem) {
+        GrandChild(int x, int y, int z, std::string name, std::string totem) : Base(x,y,z), Child(x, y, z, name), totem(totem) {
             //NOTE: child class can only access public and protected (x,z) but not private members (y).
             //Though it can instantiate the private variable and access through a getter.
             std::cout << "GrandChild initialized with parent x,y: " << Child::x << ";" << Child::z << " and name: "
@@ -78,21 +50,52 @@ namespace Inheritance {
                       << std::endl; //Debugging statements
         }
     };
-    //add virtual and import the Base too.
 
+    class student{
+    public:
+        int gpa;
+        student(int gpa): gpa(gpa){}
+    };
+
+    class employee{
+    public:
+        int salary;
+        std::string jobTitle;
+        employee(int salary, std::string title): salary(salary), jobTitle(title){}
+    };
+    class tutor: public student, protected employee{
+    public:
+        std::string course;
+        tutor(int gpa, int salary, std::string title, std::string course): student(gpa), employee(salary, title), course(course){}
+
+        void getSalaryTitle(){
+            std::cout << "salary: "<< salary << " "<< employee::jobTitle << std::endl; // can access inherited via employee::salary or salary since you've inherited it duh!
+        };
+
+        //if u try directly access salary / title, it will refuse as its been inherited with protected.
+        //if you try access course or gpa, those will be directly accessible.
+    };
+
+    void multipleInheritance(){
+        tutor KCK(90, 50, "Head Tutor", "CSC3022F");
+        std::cout << "course: " << KCK.course << " gpa: " << KCK.gpa << std::endl;
+        KCK.getSalaryTitle();
+
+    }
+
+    // Virtual added to both classes as the grandchild inherits from both the Child and the base.
     void inheritanceExample() {
         Child i(10,20, 30,"Johanna");
-
-        //GrandChild j(10,20, 30,"Johanna", "kl");
-        //notes on preventing duplicate inheritance - virtual virtual.
-
-        //multiple inheritence example.
-        //static vs dynamic polymophysm : upcast/ downcast runtime vs compiletime. static is default. override function?
+        GrandChild j(10,20, 30,"Johanna", "kl");
     }
+    //multiple inheritence example.
+    //static vs dynamic polymophysm : upcast/ downcast runtime vs compiletime. static is default. override function?
+    //notes on preventing duplicate inheritance - virtual virtual.
 
 
 }
 
 int main(){
-    Inheritance::inheritanceExample();
+    //Inheritance::inheritanceExample();
+    Inheritance::multipleInheritance();
 }
