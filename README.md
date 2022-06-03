@@ -10,7 +10,7 @@ A file serving as practical revision to a practical C++ course.
 
 # Notes
 
-### C++ Types
+### 1. C++ Types
 
 Fundamental types in C++ are divided into three categories: integral, floating point, and void. Integral types are capable of handling whole numbers. Floating point types are capable of specifying values that may have fractional parts. The void type describes an empty set of values.
 
@@ -32,7 +32,7 @@ double
 long double
 ```
 
-### C++ Concepts
+### 2. C++ Concepts
 
 Trivial example:
 
@@ -42,3 +42,12 @@ concept myConcept = std::is_class<T, U> &&
         std::is_integral<z>;
 
 ```
+
+### 3. Operator overloading
+
+
+* OO can be done as class-member (1 argument rhs) or non-member (lhs & rhs) - depending on type of operator. 
+* When there is a pvt member involved, use friend.
+* += can be returned by reference of modified lhs obj or value of created temp.
+* Unary operator takes the format ```void operator~(void){ // body }```
+  
