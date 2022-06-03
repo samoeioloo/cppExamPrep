@@ -31,7 +31,7 @@ namespace templates {
     // concepts - requires
 
     template<typename T, typename U>
-    concept SameType =  std::is_same_v<T,U>;
+    concept SameType = std::is_same_v<T, U>;
     //concept SameType =  requires(T,U){ std::is_same_v<T,U>;}; //can be defined this way to accomodate other constraints.
 
     template <typename T, typename U> requires (SameType<T,U> ) // ensure types are same and are integral types.
