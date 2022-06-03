@@ -24,6 +24,18 @@ private:
 protected:
     int d;
 };
+class Outer{
+private:
+    int i;
+public:
+    Outer():i(100){}
+    class Inner{
+    public:
+        Inner(Outer &outer){
+            cout << "Print outer's private members in constructor: " << outer.i << endl;
+        }
+    };
+};
 
 void testStruct(){
     MyStruct a(1,"56");
@@ -61,24 +73,14 @@ void testIO(){
     cout << t << a << b <<c << endl;
 }
 
-class Outer{
-private:
-    int i;
-public:
-    Outer():i(100){}
-    class Inner{
-    public:
-        Inner(Outer &outer){
-            cout << "Print outer's private members in constructor: " << outer.i << endl;
-        }
-    };
+void nestedClass(){
+    Outer outerClass;
+    Outer::Inner innerClass(outerClass);
 };
 
 int main(int argc, char * argv[]) {
-    //Nested functions
-    Outer a;
-    Outer::Inner b(aa);
 
+    nestedClass();
     testIO();
     testStruct();
     MyMacro(4+4,2);
