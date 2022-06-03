@@ -10,7 +10,7 @@ A file serving as practical revision to a practical C++ course.
 
 # Notes
 
-### 1. C++ Types
+## 1. C++ Types
 
 Fundamental types in C++ are divided into three categories: integral, floating point, and void. Integral types are capable of handling whole numbers. Floating point types are capable of specifying values that may have fractional parts. The void type describes an empty set of values.
 
@@ -32,7 +32,7 @@ double
 long double
 ```
 
-### 2. C++ Concepts
+## 2. C++ Concepts
 
 Trivial example:
 
@@ -43,7 +43,7 @@ concept myConcept = std::is_class<T, U> &&
 
 ```
 
-### 3. Operator overloading
+## 3. Operator overloading
 
 
 * OO can be done as class-member (1 argument rhs) or non-member (lhs & rhs) - depending on type of operator. 
@@ -51,3 +51,39 @@ concept myConcept = std::is_class<T, U> &&
 * += can be returned by reference of modified lhs obj or value of created temp.
 * Unary operator takes the format ```void operator~(void){ // body }```
   
+## 4. C++ Standard Library Organization
+
+The C++ Standard Library can be categorized into two parts −
+
+    The Standard Function Library − This library consists of general-purpose,stand-alone functions that are not part of any class. The function library is inherited from C.
+
+    The Object Oriented Class Library − This is a collection of classes and associated functions.
+
+Standard C++ Library incorporates all the Standard C libraries also, with small additions and changes to support type safety.
+### The Standard Function Library
+
+The standard function library is divided into the following categories −
+
+    I/O,
+    String and character handling,
+    Mathematical,
+    Time, date, and localization,
+    Dynamic allocation,
+    Miscellaneous,
+    Wide-character functions,
+
+### The Object Oriented Class Library
+
+Standard C++ Object Oriented Library defines an extensive set of classes that provide support for a number of common activities, including I/O, strings, and numeric processing. This library includes the following −
+
+    The Standard C++ I/O Classes
+    The String Class
+    The Numeric Classes
+    The STL Container Classes
+    The STL Algorithms
+    The STL Function Objects
+    The STL Iterators
+    The STL Allocators
+    The Localization library
+    Exception Handling Classes
+    Miscellaneous Support Library
