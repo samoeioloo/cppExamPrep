@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <string>
 
 //>>, <<, +, -, /, *, +=, *=, -=,!=, ++, —, [], (), >,<,~
 using namespace std;
@@ -45,7 +46,30 @@ std::ostream & operator<<(std::ostream & out, const Person & rhs){
     return out;
 }
 
+Person & operator-=(Person & lhs, const Person & rhs){
+    lhs.age-=rhs.age;
+    lhs.netWorth-= rhs.netWorth;
+    return lhs;
+}
+
 
 int main(){
+    Person myPerson("John", "Tobias", "Wick", 24, 'M');
+    Person yoPerson("Meriam", "Rue", "Slack", 19, 'F');
+
+    cout << myPerson;
+    ~myPerson; // changes gender
+    cout << myPerson;
+    myPerson+4; //increases netWorth
+    cout << myPerson;
+
+    Person rt =  myPerson + yoPerson;
+    cout << rt;
+
+    myPerson -=yoPerson;
+    cout << myPerson;
+
+    cin >> myPerson; // input two digits.
+    cout << myPerson;
 
 }
