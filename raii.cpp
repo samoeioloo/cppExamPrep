@@ -22,23 +22,29 @@ namespace ClassMember {
         string fullname;
         Person(string fullname, int SecretsNo, string * scArr=nullptr): fullname(fullname), secretsNo(SecretsNo), secretsArray(new string[secretsNo]){
             std::cout << "Normal Constructor invoked" << std::endl;
+            for( int i=0; i<secretsNo; i++){
+                secretsArray[i] = "secret";
+            }
         } //guard against zero?
 
         //Default constructor
-        Person(): fullname("fullname"), secretsNo(10), secretsArray(){
+        Person(): fullname("fullname"), secretsNo(10), secretsArray(new string[secretsNo]){
             std::cout << "Default Constructor invoked" << std::endl;
+            for( int i=0; i<secretsNo; i++){
+                *(secretsArray+i) = "secret";
+            }
         }
 
         //COPY constructor invoked by: Person b = a; -> a already instantiated.
-        Person( const Person & rhs ) { // const coz we want read-only
+        Person( const Person & rhs ): fullname(rhs.fullname), secretsNo(rhs.secretsNo), secretsArray(new string[rhs.secretsNo]) { // const coz we want read-only
             std::cout << "COPY Constructor invoked" << std::endl;
-            fullname=rhs.fullname;
-            secretsNo= rhs.secretsNo;
-            secretsArray = new string[rhs.secretsNo];
             //copy all secrets
+
             for( int i=0; i<secretsNo; i++){
-               *(secretsArray+i) = *(rhs.secretsArray+i);
+                cout<< *(rhs.secretsArray+i) << " ";
+                *(secretsArray+i) = *(rhs.secretsArray+i);
             }
+            cout << endl;
         }
 
         //MOVE constructor invoked by: Person b = std::move(a); -> a already instantiated.
@@ -91,5 +97,17 @@ namespace ClassMember {
 // TODO Non-Class Member example to be used on one and extended to others. friend if need be? Scope resolution is important
 
 int  main(){
- ClassMember::Person a[5];
+
+    //TODO Fix SegFault?
+
+    ClassMember::Person a; //Default Constructor invoked
+    ClassMember::Person b = a; //Copy Constructor invoked
+
+    ClassMember::Person c(a); //Copy Constructor invoked - alt syntax
+    ClassMember::Person d = std::move(c); //Move Constructor invoked c->d. c now empty.
+
+    c = b; //Copy Assignment Constructor.
+    b = std::move(a); //Move Assignment invoked
+
+ ClassMember::Person list[5];
 }
