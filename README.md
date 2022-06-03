@@ -98,7 +98,7 @@ Standard C++ Object Oriented Library defines an extensive set of classes that pr
 #### May need to constrict:
 1. Ensure parameters are more than 1: can't add one argument only ,
 2. The arguments must have the + operator overloaded and supported.
-3. + operation should be ``` noexcept``` since Add is no except - The noexcept operator performs a compile-time check that returns true if an expression is declared to not throw any exceptions.
+3. The + operation should be ``` noexcept``` since Add is no except - The noexcept operator performs a compile-time check that returns true if an expression is declared to not throw any exceptions.
 4. The return type should match that of Args.
 
 E.g. 2
