@@ -21,10 +21,10 @@ namespace templates {
     }
 
     //dependant typenames.
-    template< typename T, int Size>
-    auto createContainter(){
+    template<typename T, int Size>
+    auto createContainter() {
         using it = typename std::vector<T>::iterator;
-        std::vector<T> a(Size);
+        std::vector <T> a(Size);
         return a;
     }
 
