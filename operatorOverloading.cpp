@@ -73,3 +73,4 @@ int main(){
     cout << myPerson;
 
 }
+//https://www.learncpp.com/cpp-tutorial/overloading-the-arithmetic-operators-using-friend-functions/
