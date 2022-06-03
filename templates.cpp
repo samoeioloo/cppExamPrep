@@ -68,15 +68,31 @@ namespace stl{
         cout << "SORT vector STL Algo" << endl;
         vector<int> myVect3 = {2,9,3,8,55,7};
         std::sort(myVect3.begin(), myVect3.end()); //does not remove as ecxpected.
-        for (int a : myVect3) { cout << a << " "; } cout << endl;
+        for (int a : myVect3) { cout << a << " "; } cout << endl << endl;
 
         cout << "SUM vector STL Algo" << endl;
         int sum = std::accumulate(myVect3.begin(), myVect3.end(), 1000); //does not remove as ecxpected.
-        cout << sum << " " << endl;
-
-
-
+        cout << "Sum with initial value of 1000 is: " << sum << endl << endl;
     }
+
+    //Functors - class object that can optionally be instantiable with overloaded () operator.
+    //Predefined functors and also you can make custom ones.
+
+    class custom_functor{
+    public:
+        int operator()(const int & x) const{ // TODO does this const enable us to use the const variable? I know const functions woul dbe needd to accept the const variable.
+            return x*3;
+        }
+    };
+
+    void custom_functor_eg(){
+        cout << "TRANSFORM Algorithm: Custom functor tripling input vector elements" << endl;
+        vector<int> input = {2,4,5,10};
+        vector<int> output;
+        std::transform(input.begin(), input.end(), back_inserter(output), custom_functor());
+        for(int a: output){ cout << a << " "; } cout<< endl;
+    }
+
 }
 
 int main(){
@@ -89,6 +105,7 @@ int main(){
     cout << templates::Sum(2.0,4.2) <<endl;
     //cout << templates::Sum(2,4.0); //will fail because Sum has a sameType concept constraint.
     stl::STLAlgos();
+    stl::custom_functor_eg();
 
 
 }
