@@ -89,3 +89,16 @@ Standard C++ Object Oriented Library defines an extensive set of classes that pr
     Miscellaneous Support Library
 
 [Additional STL information.](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/)
+
+### 5. Templates
+
+* Concepts restrict template types for different use cases.
+* E.g. A template that takes in an unspecified number of arguments to add together:
+
+#### May need to constrict:
+1. Ensure parameters are more than 1: can't add one argument only ,
+2. The arguments must have the + operator overloaded and supported.
+3. + operation should be ``` noexcept``` since Add is no except - The noexcept operator performs a compile-time check that returns true if an expression is declared to not throw any exceptions.
+4. The return type should match that of Args.
+
+E.g. 2
