@@ -41,6 +41,9 @@ operatorOverloading: operatorOverloading.cpp
 raii: raii.cpp
 	$(CC) -c raii.cpp $(LIBS) && $(CC) raii.o -o raii.exe && ./raii.exe
 
+templates: templates.cpp
+	$(CC) -c templates.cpp $(LIBS) && $(CC) templates.o -o templates.exe && ./templates.exe
+
 
 all: pointers inheritance ExamPractice containers playground
 	@echo "Targets ran:" $^;
