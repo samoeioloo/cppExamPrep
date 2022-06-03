@@ -14,10 +14,10 @@ namespace templates {
     }
 
     //template specialization for char. Specialized case prioritized over generalized case.
-    template <>
-    char MyMax<char>(char a, char b){
-        cout << " The larger char is " << ((a>b)? a : b);
-        return (a>b)? a : b;
+    template<>
+    char MyMax<char>(char a, char b) {
+        cout << " The larger char is " << ((a > b) ? a : b);
+        return (a > b) ? a : b;
     }
 
     //dependant typenames.
