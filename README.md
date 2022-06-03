@@ -87,3 +87,5 @@ Standard C++ Object Oriented Library defines an extensive set of classes that pr
     The Localization library
     Exception Handling Classes
     Miscellaneous Support Library
+
+[Additional STL information.](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/)
