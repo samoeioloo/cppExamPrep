@@ -5,15 +5,22 @@
 #include <iostream>
 
 //>>, <<, +, -, /, *, +=, *=, -=,!=, ++, —, [], (), >,<,~
-namespace OOClassMembers {
-    class Person {
-    public:
-    };
-}
-
-namespace OONonClassMember{
-    class Person {
-    public:
+using namespace std;
+class Person {
+public:
+    string firstname;
+    string middlename;
+    string lastname;
+    int age;
+    char gender; // M/F
+    Person(string first, string mid, string last, int age, char gender ): firstname(first), middlename(mid), lastname(last), age(age), gender(gender){
+        setNet();
+    }
+    void setNet(){ netWorth=34; }
+    friend std::ostream & operator<<(std::ostream & out, const Person & rhs); //could have been defined here as well. Friend MUST stay {}
+    friend std::istream & operator>>(std::istream & in, Person & rhs){
+        in >> rhs.netWorth >> rhs.age;
+        return in;
     };
 }
 
