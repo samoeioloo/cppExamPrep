@@ -3,13 +3,14 @@
 //
 #include <iostream>
 #include <vector>
+#include <numeric> //to use accumulate - not algorithm.
 
 using namespace std;
-namespace templates{
+namespace templates {
 
-    template <typename T>
-    T MyMax(T a, T b){
-        return (a>b)? a : b;
+    template<typename T>
+    T MyMax(T a, T b) {
+        return (a > b) ? a : b;
     }
 
     //template specialization for char. Specialized case prioritized over generalized case.
