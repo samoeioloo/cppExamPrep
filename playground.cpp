@@ -61,8 +61,23 @@ void testIO(){
     cout << t << a << b <<c << endl;
 }
 
+class Outer{
+private:
+    int i;
+public:
+    Outer():i(100){}
+    class Inner{
+    public:
+        Inner(Outer &outer){
+            cout << "Print outer's private members in constructor: " << outer.i << endl;
+        }
+    };
+};
 
 int main(int argc, char * argv[]) {
+    //Nested functions
+    Outer a;
+    Outer::Inner b(aa);
 
     testIO();
     testStruct();
