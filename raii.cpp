@@ -92,6 +92,21 @@ namespace ClassMember {
         string * secretsArray; //pointer to secrets memory.
 
     };
+
+    class Buffer {
+    public:
+        int N
+        float * a;
+        const static int DEFAULT_SIZE = 10;
+        const static std::string NAME;
+        Buffer(int size=DEFAULT_SIZE): N(size=), a(new float [N]){} //get size with default parameter, create a heap pointing pointer.
+        ~Buffer(){
+            delete[] a;
+        }
+    };
+
+    const string Buffer::NAME = "MyBuffBuffer";
+    // TODO write ALL external raai big 5, write 1 internal and comment out. Edit example to suite past papers.
 }
 
 // TODO Non-Class Member example to be used on one and extended to others. friend if need be? Scope resolution is important
