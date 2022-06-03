@@ -98,7 +98,7 @@ namespace ClassMember {
 
 int  main(){
 
-    //TODO Fix SegFault?
+    //TODO Fix trying to free unallocated space on move constructor.?
 
     ClassMember::Person a; //Default Constructor invoked
     ClassMember::Person b = a; //Copy Constructor invoked
@@ -111,3 +111,6 @@ int  main(){
 
  ClassMember::Person list[5];
 }
+
+
+// TODO Check trivial past exam papers questions and replicate.
