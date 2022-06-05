@@ -102,3 +102,17 @@ Standard C++ Object Oriented Library defines an extensive set of classes that pr
 4. The return type should match that of Args.
 
 E.g. 2
+
+### 6. Lambdas
+
+```c++
+[capture_block](arguments)->return_type{lambda_body}
+
+[] // Use of external variables generates an error.
+[x, &y] // x captured by value, y captured by reference.
+[&] // external variables implicitly captured by reference.
+[=] // external variables implicitly captured by value.
+[&, x] // x explicitly captured by value. Else by reference.
+[=, &z] // z explicitly captured by reference. Else by value.
+
+```
