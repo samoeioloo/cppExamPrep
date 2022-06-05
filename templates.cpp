@@ -39,6 +39,42 @@ namespace templates {
     T Sum(T a, U b) {
         return a + b;
     }
+
+/*
+ Classmember operator [] overloading.
+    template <typename T>
+    private:
+        T * a;
+        int _size;
+    public:
+        buffer(int size) _size(size), a(new T[size]) {}
+        ~buffer(void) { delete [] a; }
+        T & operator[](int index) { return a[index]; }
+    };
+*/
+
+    //Buffer template for various types.
+    template <typename T> class buffer { // Parameterise buffer with some type T.
+        T * a; // pointer to a T
+        int _size; // buffer size
+    public: // Can declare + implement within class. e.g.
+        buffer(int size) : a(new T[size]), _size(size) {} // constructor
+        ~buffer(void) { delete [] a; } // destructor
+        T & operator[](int index); // Just declare operator[] in class
+    };
+
+    // Implementation of operator[] later in the .h - external nonclassmemnber
+    template <typename T> T & buffer<T>::operator[](int index)
+    { return a[index]; }
+
+    //copy_if stl ACTUAL algorithm - study and understand what happens under the hood.
+    template <typename InIterator, typename OutIterator, typename Predicate>
+    OutIterator copy_if(InIterator first, InIterator last, OutIterator result, Predicate pred)
+    {
+        for ( ; first != last; ++first)
+            if (pred(*first)) *result++ = *first;
+        return result;
+    }
 }
 
     //TODO more examples impelementing consepts from scratch, implementing built-in concepts etc.
@@ -85,14 +121,102 @@ namespace stl{
         }
     };
 
+    //templated functor
+    template <typename T>
+    class add_to{
+    public:
+        add_to(const T & value) : ptr(&value) {}
+        T operator()(const T & value) const
+        { return *ptr + value; } // add value to every element
+        const T * ptr;
+    };
+
+    class F {
+    public:
+        bool operator()(int a, int b) const
+        { return a < b; }
+    };
+    class not_equal_to {
+    public:
+        not_equal_to(int i) : cmp_value(i) {}
+        bool operator()(int container_value) const
+        { return cmp_value != container_value; }
+        int cmp_value;
+    };
+    //Templated not_equal_to_templated
+
+    template <typename T> class not_equal_to_templated {
+    public:
+        not_equal_to_templated(const T & cmp_value) : cmp_ptr(&cmp_value) {}
+        bool operator()(const T & container_value) const
+        { return *cmp_ptr != container_value; }
+        const T * cmp_ptr; // Avoid deep copies, store a ptr
+    };
+
+    void copy_if_eg() {
+        vector<int> data = {0, 1, 2, 3, 4}; // C++11 initializer list
+        vector<int> result;
+        not_equal_to net(3);// CONSTRUCT Functor. Call not_equal_to(3)
+        cout << (net(3) == false); // Call net.operator(3). { return 3 != 3; }
+        cout << (net(2) == true); // Call net.operator(2). { return 3 != 2; }
+        // Copies everything except 3
+        std::copy_if(data.begin(), data.end(),back_inserter(result), not_equal_to(3));
+        //TODO printout values b4 and after in one line
+    }
+
+
+
+
+    void not_equal_to_eg() {
+        vector <string> data = {"AA", "BB", "CC", "DD", "EE"}; // C++11 initializer
+        vector <string> result;
+        // Copies everything except "DD"
+        copy_if(data.begin(), data.end(),
+                back_inserter(result), not_equal_to_templated<string>("DD"));
+        //TODO printout values b4 and after in one line
+    }
+
+    //functor to implement on foreach.
+    template <typename T> class bit_examiner {
+    public:
+        bit_examiner(std::size_t which_bit) : count(0), bit(which_bit) {}
+        bit_examiner(const bit_examiner & rhs) : count(rhs.count), bit(rhs.bit) {}
+        // Count all occurences of specified bit. here, & and << are bit operators
+        void operator()(const T & value)
+        { if(value & (0x1 << bit)) ++count; }
+        std::size_t count;
+        std::size_t bit;
+    };
+    void for_each_eg() {
+        vector<int> data = {0, 1, 2, 3, 4}; // C++11 initializer list
+        bit_examiner<int> functor(6); // How many ints have bit 6 set?
+        for_each(data.begin(), data.end(), functor);
+        cout << functor.count << endl;
+    }
+
     void custom_functor_eg(){
         cout << "TRANSFORM Algorithm: Custom functor tripling input vector elements" << endl;
         vector<int> input = {2,4,5,10};
         vector<int> output;
         std::transform(input.begin(), input.end(), back_inserter(output), custom_functor());
+        //std::transform(input.begin(), input.end(), back_inserter(output), add_to<int>());
         for(int a: output){ cout << a << " "; } cout<< endl;
-    }
 
+        F f; // create an instance
+        if (f('i','j')) cout << "i < j" << endl;
+
+        //In-built functors - greater and less
+        std::greater<int> I;
+        if (I(3,2)) cout << "3 is greater than 2" << endl;
+
+        less<string> l;
+        string s1= "ha", s2="sdfsdfgd";
+        if (l(s1,s2)) cout << s1 << " is less than " << s2 << endl;
+
+        //CopyIf example
+        copy_if_eg();
+
+    }
 }
 
 int main(){
