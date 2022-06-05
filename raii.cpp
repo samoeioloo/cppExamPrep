@@ -103,6 +103,8 @@ namespace ClassMember {
         ~Buffer(){
             delete[] a;
         }
+        float & operator[](int index) { return a[index]; }
+
     };
 
     const string Buffer::NAME = "MyBuffBuffer";
